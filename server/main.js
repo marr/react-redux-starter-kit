@@ -4,12 +4,16 @@ import webpack from 'webpack'
 import webpackConfig from '../build/webpack.config'
 import historyApiFallback from 'koa-connect-history-api-fallback'
 import serve from 'koa-static'
+import api from './api'
 import _debug from 'debug'
 import config from '../config'
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
 const app = new Koa()
+
+// Include API
+app.use(api.routes())
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement isomorphic

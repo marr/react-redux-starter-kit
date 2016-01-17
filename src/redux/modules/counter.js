@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { createAction, handleActions } from 'redux-actions'
 
 // ------------------------------------
@@ -9,6 +10,12 @@ export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
 // Actions
 // ------------------------------------
 export const increment = createAction(COUNTER_INCREMENT, (value = 1) => value)
+
+export const incrementFromServer = () => (dispatch) => {
+  axios.get('http://localhost:3000/api/counter/random-increment')
+    .then((res) => dispatch(increment(res.data.increment)))
+    .catch(::console.log)
+}
 
 // This is a thunk, meaning it is a function that immediately
 // returns a function for lazy evaluation. It is incredibly useful for
@@ -26,7 +33,8 @@ export const doubleAsync = () => {
 
 export const actions = {
   increment,
-  doubleAsync
+  doubleAsync,
+  incrementFromServer,
 }
 
 // ------------------------------------

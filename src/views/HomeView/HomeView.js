@@ -17,7 +17,8 @@ export class HomeView extends React.Component {
   static propTypes = {
     counter: PropTypes.number.isRequired,
     doubleAsync: PropTypes.func.isRequired,
-    increment: PropTypes.func.isRequired
+    increment: PropTypes.func.isRequired,
+    incrementFromServer: PropTypes.func.isRequired,
   };
 
   render () {
@@ -44,6 +45,11 @@ export class HomeView extends React.Component {
         <button className='btn btn-default'
                 onClick={this.props.doubleAsync}>
           Double (Async)
+        </button>
+        {' '}
+        <button className='btn btn-default'
+                onClick={this.props.incrementFromServer}>
+          Increment (Server)
         </button>
         <hr />
         <Link to='/404'>Go to 404 Page</Link>
