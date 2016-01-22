@@ -1,5 +1,6 @@
 import { argv } from 'yargs'
 import config from '../config'
+import path from 'path'
 import webpackConfig from './webpack.config'
 
 const debug = require('debug')('app:karma')
@@ -30,7 +31,20 @@ const karmaConfig = {
     module: {
       loaders: webpackConfig.module.loaders
     },
-    sassLoader: webpackConfig.sassLoader
+    resolve: {
+      root: path.resolve(__dirname, '../src'),
+      extensions: ['', '.js', '.jsx'],
+      alias: {
+        'sinon': 'sinon/pkg/sinon'
+      }
+    },
+    sassLoader: webpackConfig.sassLoader,
+    externals: {
+      'jsdom': 'window',
+      'cheerio': 'window',
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': 'window'
+    }
   },
   webpackMiddleware: {
     noInfo: true
